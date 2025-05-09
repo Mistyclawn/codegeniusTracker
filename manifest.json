@@ -1,11 +1,19 @@
 {
     "manifest_version": 3,
     "name": "CodeGenius Button Extractor",
-    "version": "2.0",
-    "description": "현재 페이지의 codegeniusEntrance 함수를 호출하는 버튼들에서 인자들을 자동 추출하여 복사할 수 있도록 합니다.",
+    "version": "2.2",
+    "description": "웹 페이지의 codegeniusEntrance 버튼을 자동 추적하고 입장할 수 있도록 지원합니다.",
+    "developer": {
+  "name": "MistyClawn",
+  "url": "https://github.com/Mistyclawn"
+  },
+
     "permissions": [
       "storage",
-      "clipboardWrite"
+      "clipboardWrite",
+      "scripting",
+      "activeTab",
+      "tabs"
     ],
     "host_permissions": [
       "<all_urls>"
