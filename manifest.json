@@ -1,26 +1,31 @@
 {
-    "manifest_version": 3,
-    "name": "CodeGenius Button Extractor",
-    "version": "2.2",
-    "description": "웹 페이지의 codegeniusEntrance 버튼을 자동 추적하고 입장할 수 있도록 지원합니다.",
-    "auth": "MistyClawn",
+  "manifest_version": 3,
+  "name": "CodeGenius Button Extractor",
+  "version": "2.2",
+  "description": "웹 페이지의 codegeniusEntrance 버튼을 자동 추적하고 입장할 수 있도록 지원합니다.",
+  "author": "MistyClawn",
 
-    "permissions": [
-      "storage",
-      "clipboardWrite",
-      "scripting",
-      "activeTab",
-      "tabs"
-    ],
-    "host_permissions": [
-      "<all_urls>"
-    ],
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content_script.js"],
-        "run_at": "document_idle"
-      }
-    ]
-  }
+  "permissions": [
+    "storage",
+    "clipboardWrite",
+    "scripting",
+    "activeTab",
+    "tabs"
+  ],
   
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_script.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
