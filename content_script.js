@@ -4,12 +4,15 @@
   
     // 버튼에서 codegeniusEntrance 호출을 찾고, 인자들을 추출하는 함수
     function findCodeGeniusButtons() {
-      const buttons = document.querySelectorAll("button[onclick*='codegeniusEntrance']");
+      const buttons = Array.from(document.querySelectorAll("button, a")).filter(el => {
+        const handler = el.getAttribute("onclick") || el.getAttribute("href");
+        return handler && handler.includes("codegeniusEntrance");
+      });
       const results = [];
-      // 정규 표현식: 작은따옴표로 감싼 4개의 인자를 추출합니다.
       const regex = /codegeniusEntrance\(\s*'([^']*)'\s*,\s*'([^']*)'\s*,\s*'([^']*)'\s*,\s*'([^']*)'\s*\)/;
-      buttons.forEach((button) => {
-        const onclickStr = button.getAttribute("onclick");
+      buttons.forEach((el) => {
+        const handler = el.getAttribute("onclick") || el.getAttribute("href");
+      
         const match = regex.exec(onclickStr);
         if(match) {
           results.push({
