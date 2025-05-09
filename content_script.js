@@ -5,26 +5,25 @@
     // 버튼에서 codegeniusEntrance 호출을 찾고, 인자들을 추출하는 함수
     function findCodeGeniusButtons() {
       const buttons = Array.from(document.querySelectorAll("button, a")).filter(el => {
-        const handler = el.getAttribute("onclick") || el.getAttribute("href");
-        return handler && handler.includes("codegeniusEntrance");
+          const handler = el.getAttribute("onclick") || el.getAttribute("href");
+          return handler && handler.includes("codegeniusEntrance");
       });
       const results = [];
       const regex = /codegeniusEntrance\(\s*'([^']*)'\s*,\s*'([^']*)'\s*,\s*'([^']*)'\s*,\s*'([^']*)'\s*\)/;
       buttons.forEach((el) => {
-        const handler = el.getAttribute("onclick") || el.getAttribute("href");
-      
-        const match = regex.exec(onclickStr);
-        if(match) {
-          results.push({
-            cntsTypeCd: match[1],
-            sbjCd: match[2],
-            unitCd: match[3],
-            meetingId: match[4]
-          });
-        }
+          const handler = el.getAttribute("onclick") || el.getAttribute("href");
+          const match = regex.exec(handler);
+          if(match) {
+              results.push({
+                  cntsTypeCd: match[1],
+                  sbjCd: match[2],
+                  unitCd: match[3],
+                  meetingId: match[4]
+              });
+          }
       });
       return results;
-    }
+  }
   
     // 오버레이 패널을 생성하는 함수
     function createOverlay(results) {
