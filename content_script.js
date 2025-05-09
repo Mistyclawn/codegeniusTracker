@@ -87,6 +87,77 @@
             });
           };
           li.appendChild(copyBtn);
+          
+          // 입장 버튼 추가
+const enterBtn = document.createElement("button");
+enterBtn.textContent = "입장";
+enterBtn.style.fontSize = "10px";
+enterBtn.style.marginLeft = "5px";
+enterBtn.onclick = () => {
+  const query = new URLSearchParams({
+    sbjCd: params.sbjCd,
+    unitCd: params.unitCd,
+    cntsTypeCd: params.cntsTypeCd,
+    meetingId: params.meetingId
+  }).toString();
+
+  fetch("/home/codegenius/entranceLec", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: query
+  })
+  .then(res => res.text())
+  .then(text => {
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      alert("응답 JSON 파싱 실패:\n" + e + "\n" + text);
+      return;
+    }
+
+    if (data.result === "1") {
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = data.url;
+      form.target = "_blank";
+
+      const fields = {
+        authorizationHeader: data.authorizationHeader,
+        cntsTypeCd: params.cntsTypeCd,
+        sbjCd: params.sbjCd,
+        unitCd: params.unitCd,
+        meetingId: params.meetingId,
+        cmpnyCd: "AS",
+        zoomHostType: "ENTRANT"
+      };
+
+      for (const key in fields) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = fields[key];
+        form.appendChild(input);
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+    } else {
+      alert("입장 실패:\n" + data.message);
+    }
+  })
+  .catch(err => {
+    alert("요청 중 오류 발생:\n" + err);
+  });
+};
+li.appendChild(enterBtn);
+
+
+
+        
           list.appendChild(li);
         });
       }
